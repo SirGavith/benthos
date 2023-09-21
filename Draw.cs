@@ -31,19 +31,27 @@ partial class Program
             int minY = Math.Max(0,              (int)Math.Min(v1.y, Math.Min(v2.y, v3.y)));
             int maxY = Math.Min(window.Height,  (int)Math.Max(v1.y, Math.Max(v2.y, v3.y)));
 
+            var normal = Vertex.Cross(v2 - v1, v3 - v1);
+            normal /= normal.Magnitude();
+
+            var angleCos = Math.Abs(normal.z);
+
+            var color = RenderInfo.GetColor(t.color, angleCos);
 
             for (int y = minY; y < maxY; y++)
             {
                 var rowIndex = y * window.Width;
-
                 for (int x = minX; x < maxX; x++)
                 {
                     var sign1 = Vertex.SameSide(v1, v2, x, y) < 0;
                     var sign2 = Vertex.SameSide(v2, v3, x, y) < 0;
                     var sign3 = Vertex.SameSide(v3, v1, x, y) < 0;
 
+                    // var depth = transform.TransformZ()
+
                     if (sign1 == sign2 && sign2 == sign3 && zBuffer[rowIndex + x] < depth)
                     {
+                        //remove the `t.` to get shading
                         Raylib.DrawPixel(x, y, t.color);
 
                         zBuffer[rowIndex + x] = depth;

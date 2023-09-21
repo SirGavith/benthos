@@ -13,10 +13,24 @@ public class Vertex
         this.z = z;
     }
 
-    public static Vertex operator +(Vertex a, Vertex b)
+    public float Magnitude()
     {
-        return new Vertex(a.x + b.x, a.y + b.y, a.z + b.z);
+        return (float)Math.Sqrt(x * x + y * y + z * z);
     }
+
+    public static Vertex operator +(Vertex a, Vertex b) =>
+        new (a.x + b.x, a.y + b.y, a.z + b.z);
+    
+    public static Vertex operator -(Vertex a, Vertex b) =>
+        new (a.x - b.x, a.y - b.y, a.z - b.z);
+
+    public static Vertex operator *(Vertex a, float b) =>
+        new(a.x * b, a.y * b, a.z * b);
+
+    public static Vertex operator /(Vertex a, float b) =>
+        new(a.x / b, a.y / b, a.z / b);
+
+
 
     public static float SameSide(Vertex A, Vertex B, float Px, float Py)
     {
@@ -24,5 +38,14 @@ public class Vertex
         //var V1P = new Vertex(this.x - A.x, this.y - A.y, this.z - A.z);
         //only care about z component of cross prod
         return (B.x - A.x) * (Py - A.y) - (B.y - A.y) * (Px - A.x);
+    }
+
+    public static Vertex Cross(Vertex A, Vertex B)
+    {
+        return new Vertex(
+            A.y * B.z - A.z * B.y,
+            A.z * B.x - A.x * B.z,
+            A.x * B.y - A.y * B.x
+        );
     }
 }

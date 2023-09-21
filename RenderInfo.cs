@@ -61,4 +61,17 @@ static class RenderInfo
         return HeadingTransform(Heading)
             .Multiply(PitchTransform(Pitch));
     }
+
+    public static Color GetColor(Color color, double shade)
+    {
+        var redLinear = Math.Pow(color.r, 2.2) * shade;
+        var greenLinear = Math.Pow(color.g, 2.2) * shade;
+        var blueLinear = Math.Pow(color.b, 2.2) * shade;
+
+        int red = (int)Math.Pow(redLinear, 1 / 2.2);
+        int green = (int)Math.Pow(greenLinear, 1 / 2.2);
+        int blue = (int)Math.Pow(blueLinear, 1 / 2.2);
+
+        return new Color(red, green, blue, 255);
+    }
 }

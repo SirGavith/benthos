@@ -34,5 +34,4 @@ public class Matrix3x3
             Values[6] * v.x + Values[7] * v.y + Values[8] * v.z);
     }
 
-
 }
