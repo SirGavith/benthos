@@ -2,11 +2,11 @@ using Raylib_cs;
 
 namespace raylibTest;
 
-public class Box
+public class Box : IDrawable
 {
-    public Vertex Pos;
+    public Vertex Pos { get; set; }
     public Vertex Size;
-    public Color Color;
+    public Color Color { get; set; }
 
     public Box(Vertex pos, Vertex size, Color color)
     {
