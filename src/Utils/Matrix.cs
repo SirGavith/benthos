@@ -26,12 +26,12 @@ public class Matrix3x3
         return Enumerable.SequenceEqual(Values, other.Values);
     }
 
-    public Vertex Transform(Vertex v)
+    public Vector Transform(Vector v)
     {
-        return new Vertex(
-            Values[0] * v.x + Values[1] * v.y + Values[2] * v.z,
-            Values[3] * v.x + Values[4] * v.y + Values[5] * v.z,
-            Values[6] * v.x + Values[7] * v.y + Values[8] * v.z);
+        return new Vector(
+            Values[0] * v.X + Values[1] * v.Y + Values[2] * v.Z,
+            Values[3] * v.X + Values[4] * v.Y + Values[5] * v.Z,
+            Values[6] * v.X + Values[7] * v.Y + Values[8] * v.Z);
     }
 
 }

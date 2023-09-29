@@ -4,11 +4,11 @@ namespace raylibTest;
 
 public class Box : IDrawable
 {
-    public Vertex Pos { get; set; }
-    public Vertex Size;
+    public Vector Pos { get; set; }
+    public Vector Size;
     public Color Color { get; set; }
 
-    public Box(Vertex pos, Vertex size, Color color)
+    public Box(Vector pos, Vector size, Color color)
     {
         Pos = pos;
         Size = size;
@@ -17,15 +17,15 @@ public class Box : IDrawable
 
     public List<Triangle> GetTriangles()
     {
-        var v = new Vertex[8] {
+        var v = new Vector[8] {
             Pos,
-            Pos + new Vertex(Size.x, 0, 0),
-            Pos + new Vertex(Size.x, 0, Size.z),
-            Pos + new Vertex(0     , 0, Size.z),
-            Pos + new Vertex(0     , Size.y, 0),
-            Pos + new Vertex(Size.x, Size.y, 0),
+            Pos + new Vector(Size.X, 0, 0),
+            Pos + new Vector(Size.X, 0, Size.Z),
+            Pos + new Vector(0     , 0, Size.Z),
+            Pos + new Vector(0     , Size.Y, 0),
+            Pos + new Vector(Size.X, Size.Y, 0),
             Pos + Size,
-            Pos + new Vertex(0     , Size.y, Size.z),
+            Pos + new Vector(0     , Size.Y, Size.Z),
         };
 
         return new List<Triangle>() {
@@ -42,33 +42,32 @@ public class Box : IDrawable
             new (v[2], v[7], v[3], Color),
             new (v[2], v[6], v[7], Color),
             //back
-            new (v[0], v[7], v[3], Color),
-            new (v[0], v[4], v[7], Color),
+            new (v[0], v[3], v[7], Color),
+            new (v[0], v[7], v[4], Color),
             //top
             new (v[4], v[6], v[5], Color),
             new (v[4], v[7], v[6], Color),
         };
 
-        // return new List<Triangle> () {
+        // return new List<Triangle>() {
         //     //bottom
-        //     new (v[0], v[1], v[2], new Color(200, 200, 200, 255)),
-        //     new (v[0], v[2], v[3], new Color(130, 130, 130, 255)),
+        //     new (v[0], v[1], v[2], Color.BLUE),
+        //     new (v[0], v[2], v[3], Color.DARKBLUE),
         //     //left
-        //     new (v[0], v[5], v[1], new Color(80, 80, 80, 255)),
-        //     new (v[0], v[4], v[5], new Color(253, 249, 0, 255)),
+        //     new (v[0], v[5], v[1], Color.BROWN),
+        //     new (v[0], v[4], v[5], Color.DARKBROWN),
         //     //front
-        //     new (v[1], v[6], v[2], new Color(255, 203, 0, 255)),
-        //     new (v[1], v[5], v[6], new Color(255, 161, 0, 255)),
+        //     new (v[1], v[6], v[2], Color.GREEN),
+        //     new (v[1], v[5], v[6], Color.DARKGREEN),
         //     //right
-        //     new (v[2], v[7], v[3], new Color(200, 200, 200, 255)),
-        //     new (v[2], v[6], v[7], new Color(130, 130, 130, 255)),
+        //     new (v[2], v[7], v[3], Color.PURPLE),
+        //     new (v[2], v[6], v[7], Color.DARKPURPLE),
         //     //back
-        //     new (v[0], v[7], v[3], new Color(80, 80, 80, 255)),
-        //     new (v[0], v[4], v[7], new Color(253, 249, 0, 255)),
+        //     new (v[0], v[3], v[7], Color.RED),
+        //     new (v[0], v[7], v[4], Color.ORANGE),
         //     //top
-        //     new (v[4], v[6], v[5], new Color(255, 203, 0, 255)),
-        //     new (v[4], v[7], v[6], new Color(255, 161, 0, 255)),
+        //     new (v[4], v[6], v[5], Color.YELLOW),
+        //     new (v[4], v[7], v[6], Color.GOLD),
         // };
-
     }
 }

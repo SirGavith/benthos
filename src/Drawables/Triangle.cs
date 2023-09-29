@@ -3,11 +3,11 @@ namespace raylibTest;
 
 public class Triangle
 {
-    public Vertex v1;
-    public Vertex v2;
-    public Vertex v3;
+    public Vector v1;
+    public Vector v2;
+    public Vector v3;
     public Color Color;
-    public Triangle(Vertex v1, Vertex v2, Vertex v3, Color color)
+    public Triangle(Vector v1, Vector v2, Vector v3, Color color)
     {
         this.v1 = v1;
         this.v2 = v2;

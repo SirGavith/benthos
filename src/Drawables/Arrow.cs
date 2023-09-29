@@ -3,11 +3,11 @@ namespace raylibTest;
 
 public class Arrow : IDrawable
 {
-    public Vertex Pos { get; set; }
-    public Vertex Axis;
+    public Vector Pos { get; set; }
+    public Vector Axis;
     public Color Color { get; set; }
 
-    public Arrow(Vertex pos, Vertex axis, Color color)
+    public Arrow(Vector pos, Vector axis, Color color)
     {
         Pos = pos;
         Axis = axis;

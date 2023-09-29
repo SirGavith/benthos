@@ -4,8 +4,8 @@ namespace raylibTest;
 
 static class RenderInfo
 {
-    public static Vertex CameraPos = new (0, 0, -10);
-    public static Vertex CameraFacing = new (0, 0, 1);
+    public static Vector CameraPos = new (0, 0, -10);
+    public static Vector CameraFacing = new (0, 0, 1);
 
 
     public static float MovementSpeed = 0.1f;
@@ -48,12 +48,12 @@ static class RenderInfo
         );
     }
 
-    public static Matrix4x4 CameraPosTransform(Vertex CameraPos)
+    public static Matrix4x4 CameraPosTransform(Vector CameraPos)
     {
         return new Matrix4x4(
-            1, 0, 0, CameraPos.x,
-            0, 1, 0, CameraPos.y,
-            0, 0, 1, CameraPos.z,
+            1, 0, 0, CameraPos.X,
+            0, 1, 0, CameraPos.Y,
+            0, 0, 1, CameraPos.Z,
             0, 0, 0, 1
         );
     }
@@ -101,19 +101,19 @@ static class RenderInfo
         if (Raylib.IsKeyDown(KeyboardKey.KEY_S))
         	CameraPos -= CameraFacing * MovementSpeed;
         if (Raylib.IsKeyDown(KeyboardKey.KEY_A))
-        	CameraPos -= CameraFacing.Cross(new Vertex(0, 1, 0)) * MovementSpeed;
+        	CameraPos -= CameraFacing.Cross(new Vector(0, 1, 0)) * MovementSpeed;
         if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
-        	CameraPos += CameraFacing.Cross(new Vertex(0, 1, 0)) * MovementSpeed;
+        	CameraPos += CameraFacing.Cross(new Vector(0, 1, 0)) * MovementSpeed;
         if (Raylib.IsKeyDown(KeyboardKey.KEY_LEFT_SHIFT))
-        	CameraPos -= new Vertex(0, 1, 0) * MovementSpeed;
+        	CameraPos -= new Vector(0, 1, 0) * MovementSpeed;
         if (Raylib.IsKeyDown(KeyboardKey.KEY_SPACE))
-        	CameraPos += new Vertex(0, 1, 0) * MovementSpeed;
+        	CameraPos += new Vector(0, 1, 0) * MovementSpeed;
         
     }
 
     public static Color GetColor(Color color, double shade)
     {
-        shade = Math.Max(0.1, shade);
+        shade = Math.Max(0.02, shade);
         var redLinear = Math.Pow(color.r, 2.2) * shade;
         var greenLinear = Math.Pow(color.g, 2.2) * shade;
         var blueLinear = Math.Pow(color.b, 2.2) * shade;
@@ -123,5 +123,11 @@ static class RenderInfo
         int blue = (int)Math.Pow(blueLinear, 1 / 2.2);
 
         return new Color(red, green, blue, 255);
+    }
+
+    public static Color GetRandColor()
+    {
+        var rng = new Random();
+        return new Color((byte)(rng.NextDouble() * 255), (byte)(rng.Next() * 255), (byte)(rng.Next() * 255), (byte)255);
     }
 }
