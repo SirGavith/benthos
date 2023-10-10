@@ -83,13 +83,13 @@ public class Scene
             {
                 //transform into camera space
 
-                var normal = (t.v2 - t.v1).Cross(t.v3 - t.v1);
+                var normal = (t.V2 - t.V1).Cross(t.V3 - t.V1);
                 var angleCos = Math.Max(normal.Dot(LightDirection) / normal.Magnitude(), 0);
                 // var angleCos = Math.Abs(normal.z / normal.Magnitude());
 
-                Vector4 v1 = t.v1.ToVector4() * transform;
-                Vector4 v2 = t.v2.ToVector4() * transform;
-                Vector4 v3 = t.v3.ToVector4() * transform;
+                Vector4 v1 = t.V1.ToVector4() * transform;
+                Vector4 v2 = t.V2.ToVector4() * transform;
+                Vector4 v3 = t.V3.ToVector4() * transform;
 
                 //backface culling
                 if (Vector4.Norm(v2 - v1, v3 - v1).Z < 0)

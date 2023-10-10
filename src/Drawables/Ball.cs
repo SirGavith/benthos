@@ -35,7 +35,6 @@ public class Ball : IDrawable
 
     List<Triangle> Triangles = new ();
 
-
     public Ball(Vector pos, float radius, Color color)
     {
         _pos = pos;
@@ -71,17 +70,17 @@ public class Ball : IDrawable
             var inflated = new List<Triangle>();
             foreach (var t in Triangles)
             {
-                var m1 = (t.v1 + t.v2) / 2;
-                var m2 = (t.v2 + t.v3) / 2;
-                var m3 = (t.v3 + t.v1) / 2;
-                inflated.Add(new Triangle(t.v1, m1, m3, Color));
-                inflated.Add(new Triangle(m1, t.v2, m2, Color));
-                inflated.Add(new Triangle(m2, t.v3, m3, Color));
+                var m1 = (t.V1 + t.V2) / 2;
+                var m2 = (t.V2 + t.V3) / 2;
+                var m3 = (t.V3 + t.V1) / 2;
+                inflated.Add(new Triangle(t.V1, m1, m3, Color));
+                inflated.Add(new Triangle(m1, t.V2, m2, Color));
+                inflated.Add(new Triangle(m2, t.V3, m3, Color));
                 inflated.Add(new Triangle(m1,  m2,  m3, Color));
             }
             foreach (var t in inflated)
             {
-                foreach (var v in new Vector[] { t.v1, t.v2, t.v3 })
+                foreach (var v in new Vector[] { t.V1, t.V2, t.V3 })
                 {
                     float l = (float)Math.Sqrt((v.X * v.X + v.Y * v.Y + v.Z * v.Z) / (3 * Radius * Radius));
                     v.X /= l;
@@ -95,9 +94,9 @@ public class Ball : IDrawable
 
         foreach (var t in Triangles)
         {
-            t.v1 += Pos;
-            t.v2 += Pos;
-            t.v3 += Pos;
+            t.V1 += Pos;
+            t.V2 += Pos;
+            t.V3 += Pos;
         }
     }
 
