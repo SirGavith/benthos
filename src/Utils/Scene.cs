@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using Raylib_cs;
-namespace raylibTest;
+namespace Benthos;
 
 public class Scene
 {
@@ -55,7 +55,7 @@ public class Scene
     }
 
 
-    double[] zBuffer = new double[0];
+    double[] zBuffer = Array.Empty<double>();
 
     public void Draw()
     {
@@ -65,7 +65,7 @@ public class Scene
         if (zBuffer.Length != window.Width * window.Height)
             zBuffer = new double[window.Width * window.Height];
 
-        double fovAngle = Math.PI / 3;
+        double fovAngle = Math.PI / 2;
         float fov = (float)Math.Tan(fovAngle / 2);
 
         Raylib.BeginDrawing();
@@ -81,27 +81,22 @@ public class Scene
             // if (Log) Console.WriteLine($"Drawing {triangles.Count} triangles");
             foreach (var t in triangles)
             {
-
                 //transform into camera space
 
                 var normal = (t.v2 - t.v1).Cross(t.v3 - t.v1);
                 var angleCos = Math.Max(normal.Dot(LightDirection) / normal.Magnitude(), 0);
-
-
                 // var angleCos = Math.Abs(normal.z / normal.Magnitude());
 
                 Vector4 v1 = t.v1.ToVector4() * transform;
                 Vector4 v2 = t.v2.ToVector4() * transform;
                 Vector4 v3 = t.v3.ToVector4() * transform;
 
-
-                //backface culling maybe
+                //backface culling
                 if (Vector4.Norm(v2 - v1, v3 - v1).Z < 0)
                     continue;
 
                 // var depth = (short)(v1.z + v2.z + v3.z);
 
-                
 
                 //divide by z to transform into screen space
                 //divide by  fov to turn into screen coordinate space

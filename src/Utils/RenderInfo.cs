@@ -1,27 +1,25 @@
 using System.Numerics;
 using Raylib_cs;
-namespace raylibTest;
+namespace Benthos;
 
 static class RenderInfo
 {
     public static Vector CameraPos = new (0, 0, -10);
-    public static Vector CameraFacing = new (0, 0, 1);
-
-
-    public static float MovementSpeed = 0.1f;
-
-
+    public static Vector2 CameraFacing = new (0, -1);
     public static float Heading = 0;
-    public static float Pitch = (float)Math.PI;
-    public static float Roll = 0;
+    public static float Pitch = 0;
 
-    public static Matrix4x4 HeadingTransform(float Heading)
+    public static float MovementSpeed = 0.05f;
+
+
+    // public static float Roll = 0;
+
+    public static Matrix4x4 HeadingTransform(Vector2 CameraFacing)
     {
-        (double sin, double cos) = Math.SinCos(Heading);
         return new Matrix4x4(
-            (float)cos, 0, -(float)sin, 0,
+            CameraFacing.Y, 0, -CameraFacing.X, 0,
             0, 1, 0, 0,
-            (float)sin, 0, (float)cos, 0,
+            CameraFacing.X, 0, CameraFacing.Y, 0,
             0, 0, 0, 1
         );
     }
@@ -63,10 +61,16 @@ static class RenderInfo
 
     public static Matrix4x4 GetTransform()
     {
-        return CameraPosTransform(CameraPos) *
-                HeadingTransform(Heading) *
-                PitchTransform(Pitch) *
-                RollTransform(Roll);
+        return  
+                HeadingTransform(CameraFacing) *
+                // RollTransform(Roll) *
+                CameraPosTransform(CameraPos) *
+                PitchTransform(Pitch);
+
+        // return (((CameraPosTransform(CameraPos) *
+        //         HeadingTransform(Heading)) *
+        //         PitchTransform(Pitch)) *
+        //         RollTransform(Roll));
 
         // Matrix4x4 transform;
         // if (!TransformTable.TryGetValue((Heading, Pitch, Roll), out transform))
@@ -89,25 +93,43 @@ static class RenderInfo
         {
             var delta = Raylib.GetMouseDelta();
 
-            Heading += -delta.X * (float)Math.PI / Raylib.GetScreenWidth();
-            Pitch += delta.Y * (float)Math.PI / Raylib.GetScreenHeight();
-            // Pitch += (float)Math.Cos(Heading) * (delta.Y * (float)Math.PI / Raylib.GetScreenHeight());
-            // Roll += -(float)Math.Sin(Heading) * (delta.Y * (float)Math.PI / Raylib.GetScreenHeight());
+            var dHeading = -delta.X * (float)Math.PI / Raylib.GetScreenWidth();
+            Heading += dHeading;
 
+            (double sin, double cos) = Math.SinCos(Heading);
+            CameraFacing.X = (float)sin;
+            CameraFacing.Y = -(float)cos;
+
+            Pitch = (float)Math.Clamp(Pitch + delta.Y * (float)Math.PI / Raylib.GetScreenHeight(), -Math.PI / 2, Math.PI / 2);
         }
 
         if (Raylib.IsKeyDown(KeyboardKey.KEY_W))
-        	CameraPos += CameraFacing * MovementSpeed;
+        {
+            CameraPos.X += CameraFacing.X * MovementSpeed;
+            CameraPos.Z += CameraFacing.Y * MovementSpeed;
+        }
         if (Raylib.IsKeyDown(KeyboardKey.KEY_S))
-        	CameraPos -= CameraFacing * MovementSpeed;
+        {
+            CameraPos.X -= CameraFacing.X * MovementSpeed;
+            CameraPos.Z -= CameraFacing.Y * MovementSpeed;
+        }
         if (Raylib.IsKeyDown(KeyboardKey.KEY_A))
-        	CameraPos -= CameraFacing.Cross(new Vector(0, 1, 0)) * MovementSpeed;
+        {
+            CameraPos.X += -CameraFacing.Y * MovementSpeed;
+            CameraPos.Z += CameraFacing.X * MovementSpeed;
+        }
+        	// CameraPos -= CameraFacing.Cross(new Vector(0, 1, 0)) * MovementSpeed;
+
         if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
-        	CameraPos += CameraFacing.Cross(new Vector(0, 1, 0)) * MovementSpeed;
+        {
+            CameraPos.X += CameraFacing.Y * MovementSpeed;
+            CameraPos.Z += -CameraFacing.X * MovementSpeed;
+        }
+        	// CameraPos += CameraFacing.Cross(new Vector(0, 1, 0)) * MovementSpeed;
         if (Raylib.IsKeyDown(KeyboardKey.KEY_LEFT_SHIFT))
-        	CameraPos -= new Vector(0, 1, 0) * MovementSpeed;
+        	CameraPos.Y -= MovementSpeed;
         if (Raylib.IsKeyDown(KeyboardKey.KEY_SPACE))
-        	CameraPos += new Vector(0, 1, 0) * MovementSpeed;
+        	CameraPos.Y += MovementSpeed;
         
     }
 

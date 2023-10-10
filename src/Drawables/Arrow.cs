@@ -1,5 +1,5 @@
 using Raylib_cs;
-namespace raylibTest;
+namespace Benthos;
 
 public class Arrow : IDrawable
 {

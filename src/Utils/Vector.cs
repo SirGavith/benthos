@@ -69,6 +69,11 @@ public class Vector
         );
     }
 
+    public override string ToString()
+    {
+        return $"<{X}, {Y}, {Z}>";
+    }
+
 }
 
 public class Vector4

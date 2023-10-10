@@ -1,6 +1,6 @@
 using Raylib_cs;
 
-namespace raylibTest;
+namespace Benthos;
 
 public interface IDrawable
 {
