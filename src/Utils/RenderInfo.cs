@@ -94,7 +94,7 @@ static class RenderInfo
             var delta = Raylib.GetMouseDelta();
 
             var dHeading = -delta.X * (float)Math.PI / Raylib.GetScreenWidth();
-            Heading += dHeading;
+            // Heading += dHeading;
 
             (double sin, double cos) = Math.SinCos(Heading);
             CameraFacing.X = (float)sin;

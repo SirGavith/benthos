@@ -154,7 +154,7 @@ public class Scene
                             var depth = (short)(v1.Z + v2.Z + v3.Z);
                             if (zBuffer[rowIndex + x] < depth)
                             {
-                                Raylib.DrawRectangle(x, y, 2, 2, color);
+                                Raylib.DrawRectangle(x, y, 3, 3, color);
 
                                 zBuffer[rowIndex + x] = depth;
                             }

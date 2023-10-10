@@ -13,7 +13,16 @@ public class Ball : IDrawable
             RegenTriangles();
         }
     }
-    public byte Order = 3;
+    public byte _order = 3;
+    public byte Order
+    {
+        get => _order;
+        set 
+        {
+            _order = value;
+            RegenTriangles();
+        }
+    }
     float _radius;
     public float Radius
     {

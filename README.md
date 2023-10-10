@@ -1,6 +1,7 @@
 # Benthos
 - Custom 3D rendering engine
 - C#
+- `dotnet run`
 - Lightweight CPU based design
 - Inspiration from:
   - https://www.alibabacloud.com/blog/construct-a-simple-3d-rendering-engine-with-java_599599

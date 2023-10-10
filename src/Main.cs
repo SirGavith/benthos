@@ -1,25 +1,24 @@
-﻿
-using Raylib_cs;
+﻿using Raylib_cs;
 namespace Benthos;
 
 class Program
 {
     public static void Main()
     {
-        var ballFalling = true;
-        double elapsedTime = 0;
-
-        var speed = 30;
-        var theta = Math.PI / 4;
-        var rho = 1f;
-        var g = new Vector(0, -9.8f, 0);
-        var windV = new Vector(50, 0, 0);
-
-        var ball = new Ball(new Vector(0, 0, 0), 2, Color.YELLOW);
-        var ballV = new Vector((float)Math.Cos(theta), (float)Math.Sin(theta), 0) * speed;
-        var ballM = 200;
-        var ballDrag = 0.47f;
-        var ballCrossArea = (float)Math.PI * ball.Radius * ball.Radius;
+        // var ballFalling = true;
+        // double elapsedTime = 0;
+// 
+        // var speed = 30;
+        // var theta = Math.PI / 4;
+        // var rho = 1f;
+        // var g = new Vector(0, -9.8f, 0);
+        // var windV = new Vector(50, 0, 0);
+// 
+        // var ball = new Ball(new Vector(0, 0, 0), 2, Color.YELLOW);
+        // var ballV = new Vector((float)Math.Cos(theta), (float)Math.Sin(theta), 0) * speed;
+        // var ballM = 200;
+        // var ballDrag = 0.47f;
+        // var ballCrossArea = (float)Math.PI * ball.Radius * ball.Radius;
 
 
         var scene = new Scene("Windy Day")
@@ -54,10 +53,10 @@ class Program
 
             Drawables = new() {
               // ball,
-                new Ball(new Vector(0, 0, 0), 0.2f, Color.WHITE),
-                new Ball(new Vector(1, 0, 0), 0.2f, Color.RED),
-                new Ball(new Vector(0, 1, 0), 0.2f, Color.GREEN),
-                new Ball(new Vector(0, 0, 1), 0.2f, Color.BLUE),
+                new Ball(new Vector(0, 0, 0), 0.2f, Color.WHITE) { Order = 5 },
+                new Ball(new Vector(1, 0, 0), 0.2f, Color.RED) { Order = 5 },
+                new Ball(new Vector(0, 1, 0), 0.2f, Color.GREEN) { Order = 5 },
+                new Ball(new Vector(0, 0, 1), 0.2f, Color.BLUE) { Order = 5 },
                 // new Box(new Vector(-1,-1f, -1), new Vector(2, 0.1f, 2), Color.BLUE)
             }
         };
